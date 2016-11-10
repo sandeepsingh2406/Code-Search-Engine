@@ -68,6 +68,7 @@ class SearchEngine1(){
             complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>Welcome to the Search Engine</h1>" +
               "<b>Please use below extensions to the above URL ( <a href=\"http://104.197.155.244:8080\">http://104.197.155.244:8080</a> )to generate different queries for the search engine:</b> <br><br>" +
               "Note: If count is not specified, by default 5 search results are obtained <br><br>" +
+              "Note: If running the web service locally, replace the IP(http://104.197.155.244/) in the below and above example urls by \"localhost\"<br><br>" +
               "<br><b>Language based search</b><br><br>" +
               "1. Searching all projects for a specified langugage(for example, java)<br>&nbsp;&nbsp;&nbsp;Extension: ?language=java <br>" +
               "<br>So you enter the URL: <a href=\"http://104.197.155.244:8080/?language=java\">http://104.197.155.244:8080/?language=java</a>" +
