@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: CloudProject
+Implementation-Version: 1.0
+Specification-Vendor: default
+Specification-Title: CloudProject
+Implementation-Vendor-Id: default
+Specification-Version: 1.0
+Implementation-Vendor: default
+
