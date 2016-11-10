@@ -66,18 +66,18 @@ class SearchEngine1(){
         path("") {
           akka.http.scaladsl.server.Directives.get {
             complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>Welcome to the Search Engine</h1>" +
-              "<b>Please use below extensions to the above URL ( <a href=\"http://localhost:8080\">http://localhost:8080</a> )to generate different queries for the search engine:</b> <br><br>" +
+              "<b>Please use below extensions to the above URL ( <a href=\"http://104.197.155.244:8080\">http://104.197.155.244:8080</a> )to generate different queries for the search engine:</b> <br><br>" +
               "Note: If count is not specified, by default 5 search results are obtained <br><br>" +
               "<br><b>Language based search</b><br><br>" +
               "1. Searching all projects for a specified langugage(for example, java)<br>&nbsp;&nbsp;&nbsp;Extension: ?language=java <br>" +
-              "<br>So you enter the URL: http://localhost:8080/?language=java" +
+              "<br>So you enter the URL: <a href=\"http://104.197.155.244:8080/?language=java\">http://104.197.155.244:8080/?language=java</a>" +
               "<br><b> Some of the langugages used in the indexed projects are: Java, Go, PHP, JS, CSS, HTML, XML</b><br><br>" +
               "2. Searching all projects for all languages:" +
               "<br>&nbsp;&nbsp;&nbsp;Extension: language=all<br><br>" +
 
               "3. If you want to specify count(eg. 5) along with above parameters, just add the parameter(add below extension preceded by '&'):" +
               "<br>&nbsp;&nbsp;&nbsp;Extension: count=5<br>" +
-              "&nbsp;So you enter the URL: http://localhost:8080/?language=java&count=5" +
+              "&nbsp;So you enter the URL: <a href=\"http://104.197.155.244:8080/?language=java&count=5\">http://104.197.155.244:8080/?language=java&count=5</a>" +
               "<br><br>4. Other parameters possible are(<b>only language is necessary, all others optional, all parameters take only single values " +
               "and can be written in any order</b>):" +
               "<br>&nbsp;&nbsp;&nbsp;Extension: projectname=eclipse" +
@@ -86,17 +86,17 @@ class SearchEngine1(){
               "You can also search all projects by specifying a tag. Tags are added to all projects." +
               " This search will return the project containing the spcified tag in their tag list<br>" +
               "Use below query to give a tag to search in all project tags:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-              "http://localhost:8080/?tags=enter_tag_here" +
+              "<a href=\"http://104.197.155.244:8080/?tags=enter_tag_here\">http://104.197.155.244:8080/?tags=enter_tag_here</a>" +
               "<br><br><b>This tag parameter cannot be combined with any other langugage based search parameters</b>" +
 
 
               "<h2>Some example queries:</h2>" +
-              "<a href=\"http://localhost:8080/?language=java\">http://localhost:8080/?language=java</a><br>" +
-              "<a href=\"http://localhost:8080/?language=java&count=1\">http://localhost:8080/?language=java&count=1</a><br>" +
-              "<a href=\"http://localhost:8080/?language=java&projectname=eclipse\">http://localhost:8080/?language=java&projectname=eclipse</a><br>" +
-              "<a href=\"http://localhost:8080/?language=java&projectname=eclipse&count=2\">http://localhost:8080/?language=java&projectname=eclipse&count=2</a><br>" +
-              "<a href=\"http://localhost:8080/?language=java&projectname=eclipse&keyword=connector\">http://localhost:8080/?language=java&projectname=eclipse&keyword=connector</a><br>" +
-              "<a href=\"http://localhost:8080/?tags=security\">http://localhost:8080/?tags=security</a><br>"))
+              "<a href=\"http://104.197.155.244:8080/?language=java\">http://104.197.155.244:8080/?language=java</a><br>" +
+              "<a href=\"http://104.197.155.244:8080/?language=java&count=1\">http://104.197.155.244:8080/?language=java&count=1</a><br>" +
+              "<a href=\"http://104.197.155.244:8080/?language=java&projectname=eclipse\">http://104.197.155.244:8080/?language=java&projectname=eclipse</a><br>" +
+              "<a href=\"http://104.197.155.244:8080/?language=java&projectname=eclipse&count=2\">http://104.197.155.244:8080/?language=java&projectname=eclipse&count=2</a><br>" +
+              "<a href=\"http://104.197.155.244:8080/?language=java&projectname=eclipse&keyword=connector\">http://104.197.155.244:8080/?language=java&projectname=eclipse&keyword=connector</a><br>" +
+              "<a href=\"http://104.197.155.244:8080/?tags=security\">http://104.197.155.244:8080/?tags=security</a><br>"))
 
 
             //Give template response
@@ -172,10 +172,10 @@ class SearchEngine1(){
       val routes = Route2.route ~ Route3.route ~ Route1.route
     }
 
-    //It starts an HTTP Server on localhost and port 8080 and replies to GET requests using routes/handler specified
-    val bindingFuture = Http().bindAndHandle(MainRouter.routes, "localhost", 8080)
+    //It starts an HTTP Server on 104.197.155.244 and port 8080 and replies to GET requests using routes/handler specified
+    val bindingFuture = Http().bindAndHandle(MainRouter.routes, "0.0.0.0", 8080)
 
-    println(s"Check Server online at http://localhost:8080/\nPress RETURN to stop...")
+    println(s"Check Server online at http://104.197.155.244:8080/\nPress RETURN to stop...")
     StdIn.readLine() // let it run until user presses return
     bindingFuture
       .flatMap(_.unbind()) // trigger unbinding from the port
