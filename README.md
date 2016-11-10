@@ -117,7 +117,7 @@ There are two test cases in this testcase file and both make rest calls to the w
    Instructions to use the web service created(These instructions can also be found when you browse to http://104.197.155.244:8080 using a browser:
 
     Note: If count is not specified, by default 5 search results are obtained 
-	Note: If running the web service locally, replace the IP(http://104.197.155.244/) by "localhost"
+    Note: If running the web service locally, replace the IP(http://104.197.155.244/) in above and below example URLs by "localhost"
 
        **Language based search**
    
