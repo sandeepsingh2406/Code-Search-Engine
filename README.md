@@ -58,8 +58,23 @@ Overall message passing within actors for Streaming, Downloading, Parsing and In
 
 
 **2. SearchEngine.scala** 
+                                        
+           SearchEngine Class =====> discardStopwords Actor (filters search keywords, if entered) =====>  SearchEngine Class
+          (starts web service,                                                                                  ||               
+          waits for rest call)                                                                                  ||
+                                                                                                                ||
+                              SearchEngine Class<=========== ParseResponse Actor <========= Actor Fetch   <=====   
+                            (outputs response              ( Process the json,           (query elastic search,
+                            to rest call)                   format the output)             get json response)
+         
 
-We first create an actor system and create 3 actors: discardStopwords,ParseResponse and Fetch. These actors have mutiple cases amongst to handle different cases. Next, we create a web service binded to localhost on port 8080, with some handlers pre-defined. These handlers specify the different kinds of inputs that the web service can process. Depending on the rest call, the different parameters are retrieved and their values stored. These values are passed on to the actor Fetch for fetching response from Elastic Search..
+
+
+
+
+
+
+We first create an actor system and create 3 actors: discardStopwords,Fetch and ParseResponse . These actors have mutiple cases amongst to handle different cases. Next, we create a web service binded to localhost on port 8080, with some handlers pre-defined. These handlers specify the different kinds of inputs that the web service can process. Depending on the rest call, the different parameters are retrieved and their values stored. These values are passed on to the actor Fetch for fetching response from Elastic Search.
 
 **Actors:**
 
