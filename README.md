@@ -2,12 +2,18 @@ This repo contains the HW3 project i.e. **Code Search Engine** based on Elastic 
 
 Project Members are: Abhijay Patne , Kruti Sharma, Sandeep Singh
 
+-------------------------------------------------------------------------------------------------------
+**Highlights, features of the application:**
+
+1. Search by languages or tags
+2. Web service is hosted on Google Cloud (http://104.197.155.244:8080/)
+3. 
 
 -------------------------------------------------------------------------------------------------------
 
-Below is a description of the working of this project, followed by description of the project structure:
+Below is a work flow of this project, followed by description of the project structure:
 
-Project Working:
+**Project Flow:**
 
 1. Elastic Search has already been set up in Google Cloud as a preprocessor for this project's working.
 
@@ -165,9 +171,7 @@ There are two test cases in this testcase file and both make rest calls to the w
 
 1. Our search parameters can only contains single terms. Mutiple search values in the same parameter are not handled.
 
-2. The web service we created is not hosted on the cloud, only runs locally.
-
-3. The projects streamed for processing and creating index on elastic search are only Github projects, so the rest call made to Ohloh has the projects filtered for github and hence only works for projects which have a valid download url in their xml response.
+2. The projects streamed for processing and creating index on elastic search are only Github projects, so the rest call made to Ohloh has the projects filtered for github and hence only works for projects which have a valid download url in their xml response.
 
 -------------------------------------------------------------------------------------------------------
 **Load Tests:**
@@ -187,5 +191,9 @@ The number of VUs selected were : 2, 4, 6, 8 and 10. The average response time a
 -----------------------------------------------------------------------------------------------
 
 **Google Cloud details:**
+
+1. We have deployed Elasticsearch solution provide by Bitnami (https://console.cloud.google.com/launcher/details/bitnami-launchpad/elasticsearch?q=elas&project=cloudcs441hw3)
+
+2. Opened ports 9200 for Elasticsearch public access and 8080 for our Web service
 
 **References:** present in "references.txt"
