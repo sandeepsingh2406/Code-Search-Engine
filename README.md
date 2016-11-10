@@ -86,7 +86,9 @@ There are two test cases in this testcase file and both make rest calls to the w
 2. Both classes can be run individually, OhlohDownlStrMultiActor.scala and SearchEngine.scala, as they are independent. Right click on OhlohDownlStrMultiActor.scala and Run -> **StreamDownlESProject** - this is the pre-processing of index on the elastic search engine deployed on google cloud. Noew SearchEngine.scala -> Right click and run **SearchEngine** to run the code search engine and then use the search engine url in your browser.
   
 3. After the web service is created, the URL to access it is http://localhost:8080
-(This is specified in SearchEngine.scala ) Instructions to use the web service created(These instructions can also be found when you browse to http://localhost:8080 using a browser:
+(This is specified in SearchEngine.scala ) 
+
+   Instructions to use the web service created(These instructions can also be found when you browse to http://localhost:8080 using a browser:
 
     Note: If count is not specified, by default 5 search results are obtained 
 
