@@ -90,46 +90,46 @@ There are two test cases in this testcase file and both make rest calls to the w
 
 Note: If count is not specified, by default 5 search results are obtained 
 
-**Language based search**
-
-1. Searching all projects for a specified langugage(for example, java)
-   Extension: ?language=java 
-
-So you enter the URL: http://localhost:8080/?language=java
-
-Some of the langugages used in the indexed projects are: Java, Go, PHP, JS, CSS, HTML, XML
-
-2. Searching all projects for all languages:
-   Extension: language=all
-
-3. If you want to specify count(eg. 5) along with above parameters, just add the parameter(add below extension preceded by '&'):
-   Extension: count=5
-
-So you enter the URL: http://localhost:8080/?language=java&count=5
-
-4. Other parameters possible are(only language is necessary, all others optional, all parameters take only single values and can be written in any order):
-   Extension: projectname=eclipse
-   Extension: keyword=search_term
-
-
-**Tag based search**
-You can also search all projects by specifying a tag. Tags are added to all projects. This search will return the project containing the specified tag in their tag list
-
-Use below query to give a tag to search in all project tags:
-
-http://localhost:8080/?tags=enter_tag_here
-
-This tag parameter cannot be combined with any other language based search parameters.
-
-Some example queries:
-
-http://localhost:8080/?language=java
-http://localhost:8080/?language=java&count=1
-http://localhost:8080/?language=java&projectname=eclipse
-http://localhost:8080/?language=java&projectname=eclipse&count=2
-http://localhost:8080/?language=java&projectname=eclipse&keyword=connector
-http://localhost:8080/?tags=security
-
+       **Language based search**
+   
+   1. Searching all projects for a specified langugage(for example, java)
+      Extension: ?language=java 
+   
+   So you enter the URL: http://localhost:8080/?language=java
+   
+   Some of the langugages used in the indexed projects are: Java, Go, PHP, JS, CSS, HTML, XML
+   
+   2. Searching all projects for all languages:
+      Extension: language=all
+   
+   3. If you want to specify count(eg. 5) along with above parameters, just add the parameter(add below extension preceded by '&'):
+      Extension: count=5
+   
+   So you enter the URL: http://localhost:8080/?language=java&count=5
+   
+   4. Other parameters possible are(only language is necessary, all others optional, all parameters take only single values and can be written in any order):
+      Extension: projectname=eclipse
+      Extension: keyword=search_term
+   
+   
+   **Tag based search**
+   You can also search all projects by specifying a tag. Tags are added to all projects. This search will return the project containing the specified tag in their tag list
+   
+   Use below query to give a tag to search in all project tags:
+   
+   http://localhost:8080/?tags=enter_tag_here
+   
+   This tag parameter cannot be combined with any other language based search parameters.
+   
+   Some example queries:
+   
+   http://localhost:8080/?language=java
+   http://localhost:8080/?language=java&count=1
+   http://localhost:8080/?language=java&projectname=eclipse
+   http://localhost:8080/?language=java&projectname=eclipse&count=2
+   http://localhost:8080/?language=java&projectname=eclipse&keyword=connector
+   http://localhost:8080/?tags=security
+   
 Limitations:
 1. Our search parameters can only contains single terms. Mutiple search values in the same parameter are not handled.
 2. The web service we created is not hosted on the cloud, only runs locally.
