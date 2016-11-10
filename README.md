@@ -166,4 +166,4 @@ The number of VUs selected were : 2, 4, 6, 8 and 10. The average response time a
 
 **Google Cloud details:**
 
-**References:** present in "References.docx"
+**References:** present in "references.txt"
