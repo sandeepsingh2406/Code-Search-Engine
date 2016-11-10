@@ -2,6 +2,9 @@ This repo contains the HW3 project i.e. **Code Search Engine** based on Elastic 
 
 Project Members are: Abhijay Patne , Kruti Sharma, Sandeep Singh
 
+
+-------------------------------------------------------------------------------------------------------
+
 Below is a description of the working of this project, followed by description of the project structure:
 
 Project Working:
@@ -17,6 +20,8 @@ We also obtain some project metadata from the XML response coming through API ca
  and outputs the response to the user throguh the browser.
  
  
+-------------------------------------------------------------------------------------------------------
+
 **Project Structure:**
 
 Scala main classes(/src/main/scala/):
@@ -50,6 +55,8 @@ Overall message passing within actors for Streaming, Downloading, Parsing and In
 **StreamDownlProjects(Main Actor) ! StartStream** -------pass the download url of project to this actor ------> **ESClient (2nd Actor) ! StartDownloading** ----- extract the bag of words from the downloaded files ------> **StreamDownlProjects(Main Actor) ! StartParsing** -----start indexing each of the files-----> **ESClient(2nd Actor) ! StartFileIndex**
 
 
+-------------------------------------------------------------------------------------------------------
+
 **Unit Testing for OhlohDownlStrMultiActor.scala => StreamingDownlnitTest.scala**
 
 This unit testing perform the following unit and integration testing:
@@ -78,6 +85,7 @@ We first create an actor system and create 3 actors: discardStopwords,ParseRespo
 
 There are two test cases in this testcase file and both make rest calls to the web service and check its response.
 
+-------------------------------------------------------------------------------------------------------
 
 **How to run the project:**
 
@@ -131,13 +139,15 @@ There are two test cases in this testcase file and both make rest calls to the w
       http://localhost:8080/?language=java&projectname=eclipse&count=2
       http://localhost:8080/?language=java&projectname=eclipse&keyword=connector
       http://localhost:8080/?tags=security
-   
-Limitations:
+  
+
+------------------------------------------------------------------------------------------------------- 
+**Limitations:**
 1. Our search parameters can only contains single terms. Mutiple search values in the same parameter are not handled.
 2. The web service we created is not hosted on the cloud, only runs locally.
 3. The projects streamed for processing and creating index on elastic search are only Github projects, so the rest call made to Ohloh has the projects filtered for github and hence only works for projects which have a valid download url in their xml response.
 
-
+-------------------------------------------------------------------------------------------------------
 **Load Tests:**
 
 The load test was performed using SOAPUI - LOADUI NG. The test case contained 4 queries : 
@@ -152,7 +162,7 @@ http://localhost:8080/?tags=security -- search simply based on tags
 
 The number of VUs selected were : 2, 4, 6, 8 and 10. The average response time and the associated charts are present in the folder **SOAPUI Load Test Results**. The folder has analysis report for each of the VUs, chart for VUs = 10 and the consolidated chart for average response time vs number of VUs.
 
-
+-----------------------------------------------------------------------------------------------
 
 **Google Cloud details:**
 
