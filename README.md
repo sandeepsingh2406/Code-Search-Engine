@@ -57,15 +57,6 @@ Overall message passing within actors for Streaming, Downloading, Parsing and In
 
 -------------------------------------------------------------------------------------------------------
 
-**Unit Testing for OhlohDownlStrMultiActor.scala => StreamingDownlnitTest.scala**
-
-This unit testing perform the following unit and integration testing:
-
-1. **test("Test Streaming and Downloading")** =>  this test case tests whether the user can stream a single project url from OHLOH and do indexing of the project and files. The assert shows the project index created on the elastic search engine for the streamed project.
-
-2. **test("Test Downloading projects")** => this unit test case tests whether the files as received from github from the streamed project are actually downloaded on the local or not. The assert checks the project directory is downloaded on the local folder or not.
-
----------------------------------------------------------------------------------
 
 **2. SearchEngine.scala** 
 
@@ -80,6 +71,18 @@ We first create an actor system and create 3 actors: discardStopwords,ParseRespo
 **ParseResponse** : This actor parses the json response, and gets the value for fields like: total time taken, total number of hits, proejct names, file names etc. These values are properly formatted into a string and sent back to the main class, which displays the information in the browser to the user.
 			
 **Scala test classes** (/ src / test / scala /):
+
+**StreamingDownlnitTest.scala**
+(Unit Testing for OhlohDownlStrMultiActor.scala)
+
+This unit testing perform the following unit and integration testing:
+
+1. **test("Test Streaming and Downloading")** =>  this test case tests whether the user can stream a single project url from OHLOH and do indexing of the project and files. The assert shows the project index created on the elastic search engine for the streamed project.
+
+2. **test("Test Downloading projects")** => this unit test case tests whether the files as received from github from the streamed project are actually downloaded on the local or not. The assert checks the project directory is downloaded on the local folder or not.
+
+---------------------------------------------------------------------------------
+
 	
 **SearchEngineTest.scala**: This test case is a unit test for the SearchEngine class. The test cases first creates the web service using SearchEngine.scala. The test cases waits for 10 secs, so that the web service is created and started using SearchEngine.scala. 
 
@@ -144,7 +147,9 @@ There are two test cases in this testcase file and both make rest calls to the w
 ------------------------------------------------------------------------------------------------------- 
 **Limitations:**
 1. Our search parameters can only contains single terms. Mutiple search values in the same parameter are not handled.
+
 2. The web service we created is not hosted on the cloud, only runs locally.
+
 3. The projects streamed for processing and creating index on elastic search are only Github projects, so the rest call made to Ohloh has the projects filtered for github and hence only works for projects which have a valid download url in their xml response.
 
 -------------------------------------------------------------------------------------------------------
