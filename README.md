@@ -69,6 +69,9 @@ We first create an actor system and create 3 actors: discardStopwords,ParseRespo
 **Fetch** : This actor uses the parameters specified by user, to make a rest call using Elastic Search's Search API. The response from Elastic Search is a json, which contains some meta data about the search, along with matching indexes for the search. This json response is passes onto the ParseResponse actor.
 					  
 **ParseResponse** : This actor parses the json response, and gets the value for fields like: total time taken, total number of hits, proejct names, file names etc. These values are properly formatted into a string and sent back to the main class, which displays the information in the browser to the user.
+
+
+---------------------------------------------------------------------------------
 			
 **Scala test classes** (/ src / test / scala /):
 
@@ -80,8 +83,6 @@ This unit testing perform the following unit and integration testing:
 1. **test("Test Streaming and Downloading")** =>  this test case tests whether the user can stream a single project url from OHLOH and do indexing of the project and files. The assert shows the project index created on the elastic search engine for the streamed project.
 
 2. **test("Test Downloading projects")** => this unit test case tests whether the files as received from github from the streamed project are actually downloaded on the local or not. The assert checks the project directory is downloaded on the local folder or not.
-
----------------------------------------------------------------------------------
 
 	
 **SearchEngineTest.scala**: This test case is a unit test for the SearchEngine class. The test cases first creates the web service using SearchEngine.scala. The test cases waits for 10 secs, so that the web service is created and started using SearchEngine.scala. 
