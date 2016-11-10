@@ -37,10 +37,10 @@ and finally call the create index to process the index for each of the files.
 
 **StreamDownlProjects** (main acotor) - this actor is responsible for following operations as defined by cases in its receive:
 
-**1. StartStream(ohlohURL)** => this is the entry point for our program and passing message to **StreamDownlProjects actor** with this case class starts the streaming of the projects from OHLOH REST API. The URL used for streaming projects from OHLOH API are filtered to return projects contanining **github** in their
+**a) StartStream(ohlohURL)** => this is the entry point for our program and passing message to **StreamDownlProjects actor** with this case class starts the streaming of the projects from OHLOH REST API. The URL used for streaming projects from OHLOH API are filtered to return projects contanining **github** in their
 name or description or home page url which gives us the flexibility to download the repositories of github. This rest call returns an XML containing 10 projects information.
 
-**2. StartParsing(allFiles,projectName,projectDesc,projectURL)** => this case class is used for parsing the files content into bag of words. The content from the file are read and all special characters except underscore are replaced, so now the content is bag of words and this content is associated with each indexed file which is stored in "content" mapping type field in the index created for the file type.
+**b) StartParsing(allFiles,projectName,projectDesc,projectURL)** => this case class is used for parsing the files content into bag of words. The content from the file are read and all special characters except underscore are replaced, so now the content is bag of words and this content is associated with each indexed file which is stored in "content" mapping type field in the index created for the file type.
 
 **ESClient** (2nd Actor) => this actor is responsible for making the Scala client for elastic search engine at : "104.197.155.244" and port : "9300". Once the client is instantiated, this client can be used for creating and quering indexes on the elastic search engine. The actor has the following case classes:
 
