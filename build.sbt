@@ -1,4 +1,4 @@
-name := "CloudProject"
+name := "sandeep_kruti_abhijay_hw3"
 
 version := "1.0"
 
