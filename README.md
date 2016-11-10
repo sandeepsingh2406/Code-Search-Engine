@@ -74,7 +74,7 @@ Overall message passing within actors for Streaming, Downloading, Parsing and In
 
 
 
-We first create an actor system and create 3 actors: discardStopwords,Fetch and ParseResponse . These actors have mutiple cases amongst to handle different cases. Next, we create a web service binded to localhost on port 8080, with some handlers pre-defined. These handlers specify the different kinds of inputs that the web service can process. Depending on the rest call, the different parameters are retrieved and their values stored. These values are passed on to the actor Fetch for fetching response from Elastic Search.
+We first create an actor system and create 3 actors: discardStopwords,Fetch and ParseResponse . These actors have mutiple cases amongst to handle different cases. Next, we create a web service binded to localhost(also running on google cloud host) on port 8080, with some handlers pre-defined. These handlers specify the different kinds of inputs that the web service can process. Depending on the rest call, the different parameters are retrieved and their values stored. These values are passed on to the actor Fetch for fetching response from Elastic Search.
 
 **Actors:**
 
@@ -111,19 +111,20 @@ There are two test cases in this testcase file and both make rest calls to the w
 
 2. Both classes can be run individually, OhlohDownlStrMultiActor.scala and SearchEngine.scala, as they are independent. Right click on OhlohDownlStrMultiActor.scala and Run -> **StreamDownlESProject** - this is the pre-processing of index on the elastic search engine deployed on google cloud. Noew SearchEngine.scala -> Right click and run **SearchEngine** to run the code search engine and then use the search engine url in your browser.
   
-3. After the web service is created, the URL to access it is http://localhost:8080
+3. After the web service is created, the URL to access it is http://104.197.155.244:8080
 (This is specified in SearchEngine.scala ) 
 
-   Instructions to use the web service created(These instructions can also be found when you browse to http://localhost:8080 using a browser:
+   Instructions to use the web service created(These instructions can also be found when you browse to http://104.197.155.244:8080 using a browser:
 
     Note: If count is not specified, by default 5 search results are obtained 
+	Note: If running the web service locally, replace the IP(http://104.197.155.244/) by "localhost"
 
        **Language based search**
    
      1. Searching all projects for a specified langugage(for example, java)
         Extension: ?language=java 
    
-     So you enter the URL: http://localhost:8080/?language=java
+     So you enter the URL: http://104.197.155.244:8080/?language=java
    
      Some of the langugages used in the indexed projects are: Java, Go, PHP, JS, CSS, HTML, XML
    
@@ -133,7 +134,7 @@ There are two test cases in this testcase file and both make rest calls to the w
      3. If you want to specify count(eg. 5) along with above parameters, just add the parameter(add below extension preceded by '&'):
         Extension: count=5
    
-      So you enter the URL: http://localhost:8080/?language=java&count=5
+      So you enter the URL: http://104.197.155.244:8080/?language=java&count=5
    
      4. Other parameters possible are(only language is necessary, all others optional, all parameters take only single values and can be written in any order):
          Extension: projectname=eclipse
@@ -145,18 +146,18 @@ There are two test cases in this testcase file and both make rest calls to the w
    
       Use below query to give a tag to search in all project tags:
    
-      http://localhost:8080/?tags=enter_tag_here
+      http://104.197.155.244:8080/?tags=enter_tag_here
    
       This tag parameter cannot be combined with any other language based search parameters.
    
       Some example queries:
    
-      http://localhost:8080/?language=java
-      http://localhost:8080/?language=java&count=1
-      http://localhost:8080/?language=java&projectname=eclipse
-      http://localhost:8080/?language=java&projectname=eclipse&count=2
-      http://localhost:8080/?language=java&projectname=eclipse&keyword=connector
-      http://localhost:8080/?tags=security
+      http://104.197.155.244:8080/?language=java
+      http://104.197.155.244:8080/?language=java&count=1
+      http://104.197.155.244:8080/?language=java&projectname=eclipse
+      http://104.197.155.244:8080/?language=java&projectname=eclipse&count=2
+      http://104.197.155.244:8080/?language=java&projectname=eclipse&keyword=connector
+      http://104.197.155.244:8080/?tags=security
   
 
 ------------------------------------------------------------------------------------------------------- 
@@ -173,13 +174,13 @@ There are two test cases in this testcase file and both make rest calls to the w
 
 The load test was performed using SOAPUI - LOADUI NG. The test case contained 4 queries : 
 
-http://localhost:8080/ -- checking if the search engine is available
+http://104.197.155.244:8080/ -- checking if the search engine is available
 
-http://localhost:8080/?language=java&projectname=eclipse -- search based on language and project name
+http://104.197.155.244:8080/?language=java&projectname=eclipse -- search based on language and project name
 
-http://localhost:8080/?language=java -- search simply based on language
+http://104.197.155.244:8080/?language=java -- search simply based on language
 
-http://localhost:8080/?tags=security -- search simply based on tags
+http://104.197.155.244:8080/?tags=security -- search simply based on tags
 
 The number of VUs selected were : 2, 4, 6, 8 and 10. The average response time and the associated charts are present in the folder **SOAPUI Load Test Results**. The folder has analysis report for each of the VUs, chart for VUs = 10 and the consolidated chart for average response time vs number of VUs.
 
