@@ -44,18 +44,17 @@ name or description or home page url which gives us the flexibility to download 
 
 **ESClient** (2nd Actor) => this actor is responsible for making the Scala client for elastic search engine at : "104.197.155.244" and port : "9300". Once the client is instantiated, this client can be used for creating and quering indexes on the elastic search engine. The actor has the following case classes:
 
-**1. StartDownloading(projectId,projectURL,projectName,projectDesc)** => this case class is responsible for downloading the github repository from the url as obtained by streaming each project present under homepage_url in the project directory with folder name as TestGitRepository_{project_id}
+**a) StartDownloading(projectId,projectURL,projectName,projectDesc)** => this case class is responsible for downloading the github repository from the url as obtained by streaming each project present under homepage_url in the project directory with folder name as TestGitRepository_{project_id}
 
-**2. StartFileIndex(projectName,projectDesc,fileName,fileExt,content,mappingType,projectURL) =>** this case class is responsible for indexing each file i.e. create index for each of the code file with index name = "languages", type = "java" (this is basically the extension of the file which denotes which code file that is being indexed), mapping = contains the project name, project url, project description, and content - which is the bag of words as extracted from the file (which has no special characters except _)
+**b) StartFileIndex(projectName,projectDesc,fileName,fileExt,content,mappingType,projectURL) =>** this case class is responsible for indexing each file i.e. create index for each of the code file with index name = "languages", type = "java" (this is basically the extension of the file which denotes which code file that is being indexed), mapping = contains the project name, project url, project description, and content - which is the bag of words as extracted from the file (which has no special characters except _)
 
-**3. createTagIndex(projectId, projectName, projectURL, projectDesc, projectTags)** => this case class is responsible for creating indexes for tags as obtained by processing the projects xml which may contain tags associated to each project. This helps in creating another search index for our search engine.
+**c) createTagIndex(projectId, projectName, projectURL, projectDesc, projectTags)** => this case class is responsible for creating indexes for tags as obtained by processing the projects xml which may contain tags associated to each project. This helps in creating another search index for our search engine.
 
 Overall message passing within actors for Streaming, Downloading, Parsing and Indexing the files on Elastic Search Engine => 
 
 **StreamDownlProjects(Main Actor) ! StartStream** -------pass the download url of project to this actor ------> **ESClient (2nd Actor) ! StartDownloading** ----- extract the bag of words from the downloaded files ------> **StreamDownlProjects(Main Actor) ! StartParsing** -----start indexing each of the files-----> **ESClient(2nd Actor) ! StartFileIndex**
 
 
--------------------------------------------------------------------------------------------------------
 
 
 **2. SearchEngine.scala** 
