@@ -93,7 +93,7 @@ We first create an actor system and create 3 actors: discardStopwords,Fetch and 
 
 ---------------------------------------------------------------------------------
 			
-**Scala test classes** (/ src / test / scala /):
+**Scala test classes** (/ src/test/scala/):
 
 **StreamingDownlnitTest.scala**
 (Unit Testing for OhlohDownlStrMultiActor.scala)
@@ -105,9 +105,9 @@ This unit testing perform the following unit and integration testing:
 2. **test("Test Downloading projects")** => this unit test case tests whether the files as received from github from the streamed project are actually downloaded on the local or not. The assert checks the project directory is downloaded on the local folder or not.
 
 	
-**SearchEngineTest.scala**: This test case is a unit test for the SearchEngine class. The test cases first creates the web service using SearchEngine.scala. The test cases waits for 10 secs, so that the web service is created and started using SearchEngine.scala. 
+**SearchEngineTest.scala**: This test case is an integration test for the SearchEngine class. The test cases first creates the web service using SearchEngine.scala and runs the entire program in SearchEngine.scala. The test cases waits for 10 secs, so that the web service is created and started. 
 
-There are two test cases in this testcase file and both make rest calls to the web service and check its response.
+There are two test cases in this testcase file and both make rest calls to the web service and check its response. If the responses match, these test cases pass.
 
 -------------------------------------------------------------------------------------------------------
 
