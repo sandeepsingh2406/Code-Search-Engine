@@ -122,6 +122,7 @@ There are two test cases in this testcase file and both make rest calls to the w
 **OPTION 2(Run web service on the cloud):**
 
 1. Copy SearchEngine.scala and build.sbt to a folder in your google cloud VM. 
+
                                             Run using SBT(From within the folder): sbt compile
    
                                             sbt run
