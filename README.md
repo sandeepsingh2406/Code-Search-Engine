@@ -86,7 +86,7 @@ We first create an actor system and create 3 actors: discardStopwords,Fetch and 
 
 **discardStopwords** : In case a search keyword is also entered in the rest call, first discardStopwords, which removes common words in programming languages which can be discarded. Then filtered keywords are passes back to main class which passes all parameters to the actor Fetch, as mentioned previously.
 			
-**Fetch** : This actor uses the parameters specified by user, to make a rest call using Elastic Search's Search API. The response from Elastic Search is a json, which contains some meta data about the search, along with matching indexes for the search. This json response is passes onto the ParseResponse actor.
+**Fetch** : This actor uses the parameters specified by user, to make a rest call using Elastic Search's Search API. The response from Elastic Search is a json(the response results are sorted by a match score computed by ElasticSearch), which contains some meta data about the search, along with matching indexes for the search. This json response is passes onto the ParseResponse actor.
 					  
 **ParseResponse** : This actor parses the json response, and gets the value for fields like: total time taken, total number of hits, proejct names, file names etc. These values are properly formatted into a string and sent back to the main class, which displays the information in the browser to the user.
 
