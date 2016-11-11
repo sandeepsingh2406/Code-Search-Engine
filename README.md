@@ -113,22 +113,23 @@ There are two test cases in this testcase file and both make rest calls to the w
 
 **How to run the project:**
 
-OPTION 1(Run everything locally):
+**OPTION 1(Run everything locally):**
 
 1. Clone the repo and import the project into IntelliJ using SBT.
 
 2. Both classes can be run individually, OhlohDownlStrMultiActor.scala and SearchEngine.scala, as they are independent. Right click on OhlohDownlStrMultiActor.scala and Run -> **StreamDownlESProject** - this is the pre-processing of index on the elastic search engine deployed on google cloud. Noew SearchEngine.scala -> Right click and run **SearchEngine** to run the code search engine and then use the search engine url in your browser.
 
-OPTION 2(Run web service on the cloud):
+**OPTION 2(Run web service on the cloud):**
 
 1. Copy SearchEngine.scala and build.sbt to a folder in your google cloud VM. 
-        Run using SBT(From within the folder): sbt compile
-                                               sbt run
+   Run using SBT(From within the folder): sbt compile
+   
+                                            sbt run
 
 * After the web service is created, the URL to access it is http://104.197.155.244:8080 (or http://localhost:8080 if web service is run locally OR use your google cloud IP)
 (This is specified in SearchEngine.scala ) 
 
-   Instructions to use the web service created(These instructions can also be found when you browse to http://104.197.155.244:8080 using a browser:
+   **Instructions to use the web service created(These instructions can also be found when you browse to http://104.197.155.244:8080 using a browser:**
 
     Note: If count is not specified, by default 5 search results are obtained 
     Note: If running the web service locally, replace the IP(http://104.197.155.244/) in above and below example URLs by "localhost"
