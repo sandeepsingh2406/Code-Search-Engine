@@ -122,11 +122,11 @@ There are two test cases in this testcase file and both make rest calls to the w
 **OPTION 2(Run web service on the cloud):**
 
 1. Copy SearchEngine.scala and build.sbt to a folder in your google cloud VM. 
-   Run using SBT(From within the folder): sbt compile
+                                            Run using SBT(From within the folder): sbt compile
    
                                             sbt run
 
-* After the web service is created, the URL to access it is http://104.197.155.244:8080 (or http://localhost:8080 if web service is run locally OR use your google cloud IP)
+## After the web service is created, the URL to access it is http://104.197.155.244:8080 (or http://localhost:8080 if web service is run locally OR use your google cloud IP)
 (This is specified in SearchEngine.scala ) 
 
    **Instructions to use the web service created(These instructions can also be found when you browse to http://104.197.155.244:8080 using a browser:**
