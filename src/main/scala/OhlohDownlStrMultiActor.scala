@@ -16,11 +16,12 @@ import scala.xml.XML
 case class StartStream(ohlohURL : String)
 case class StartDownloading(projectId: String, projectURL : String,projectName:String,projectDesc : String)
 case class StartParsing(allFiles : Array[File],projectName:String,projectDesc : String, projectURL : String)
-case class StartFileIndex(projectName: String, projectDesc : String, fileName : String, fileExt : String, content : String, mappingType: String, projectURL : String)
+case class StartFileIndex(projectName: String, projectDesc : String, fileName : String, fileExt : String, content : String, mappingType: String, projectURL : String, maincount : Int)
 case object StartIndexing
 case class createTagIndex(projectId: String, projectName: String, projectURL: String, projectDesc : String, projectTags : String)
 case object getSearchResponses
 case object testMessage
+case object stopActor
 
 case object StreamAllGithubProjects
 
@@ -34,7 +35,7 @@ case object StreamAllGithubProjects
 /* this actor is responsible for streaming projects from OHLOH API - for our search engine, we
 * are streaming only github projects.*/
 class StreamDownlProjects(ESClient: ActorRef) extends Actor {
-  var count = 0
+  var maincount = 0
 
   //var projectName = Seq[String]()
   var projectDesc = ""
@@ -167,32 +168,34 @@ class StreamDownlProjects(ESClient: ActorRef) extends Actor {
       }
 
     /* This method is for parsing each of the files as present in the project */
-    case StartParsing(allFiles,projectName,projectDesc,projectURL) =>
+    case StartParsing(allFiles,projectName,projectDesc,projectURL) => {
 
       println("in main actor : start parsing")
 
-      var plainText =  ""
+      var plainText = ""
+      maincount += allFiles.length
 
-      for(filename <- allFiles){
+      for (filename <- allFiles) {
         /*  extract the contents from each of the file as simple bag of words, removing all specail
          * characters except underscore. */
         plainText = new String(Files.readAllBytes(Paths.get(filename.getAbsolutePath)))
 
 
         var tempFileExt = filename.toString()
-        tempFileExt = tempFileExt.substring(tempFileExt.lastIndexOf(".")+1,tempFileExt.length)
+        tempFileExt = tempFileExt.substring(tempFileExt.lastIndexOf(".") + 1, tempFileExt.length)
 
         var tempFileName = filename.toString
-        tempFileName = tempFileName.substring(tempFileName.lastIndexOf("\\")+1, tempFileName.length)
+        tempFileName = tempFileName.substring(tempFileName.lastIndexOf("\\") + 1, tempFileName.length)
 
 
         plainText = plainText.replaceAll("[^\\w]", " ")
 
         /* once the content is extracted as plain bag of words - start indexing each file for each project with index as languages*/
-        sender ! StartFileIndex(projectName,projectDesc,tempFileName,tempFileExt,plainText.toString,"languages",projectURL)
+        sender ! StartFileIndex(projectName, projectDesc, tempFileName, tempFileExt, plainText.toString, "languages", projectURL, maincount)
 
         plainText = ""
       }
+    }
 
     /* fetch the responses after running the index */
     //ESClient ! getSearchResponses
@@ -203,6 +206,8 @@ class StreamDownlProjects(ESClient: ActorRef) extends Actor {
 /* this actor is responsible for opening the client for elastic search on google cloud*/
 
 class ESClient extends Actor {
+
+  var count : Int = 0
 
   private val port = 9300
 
@@ -236,22 +241,21 @@ class ESClient extends Actor {
   def receive = {
 
     /* Download the project on the local drive */
-    case StartDownloading(projectId,projectURL,projectName,projectDesc) =>
-      println("ESClient : receiving url: "+projectURL)
+    case StartDownloading(projectId,projectURL,projectName,projectDesc) => {
 
       var modifiedProjectURL = projectURL
 
       /* since all the URLS for github are moved to HTTPS, so if any URL has HTTP => automatically replace it with
        * HTTPS */
-      if(projectURL.startsWith("http://github")){
-        modifiedProjectURL = projectURL.replace("http:","https:")
+      if (projectURL.startsWith("http://github")) {
+        modifiedProjectURL = projectURL.replace("http:", "https:")
       }
-      println("ESClient : modified url: "+modifiedProjectURL)
+      println("Download from the url: " + modifiedProjectURL)
 
       /* downlaod the projects only with github repositories*/
-      if(modifiedProjectURL.startsWith("https://github")){
+      if (modifiedProjectURL.startsWith("https://github")) {
         /* local folder to create the repository downloaded from the github*/
-        var localFolder = "TestGitRepository_"+projectId
+        var localFolder = "TestGitRepository_" + projectId
 
         FileUtils.deleteDirectory(new File(localFolder))
 
@@ -263,19 +267,19 @@ class ESClient extends Actor {
 
         /* once all the files are downloaded from github - start parsing the content  of each of the file
         * into bag of words in order to process the index */
-        sender ! StartParsing(files,projectName,projectDesc,projectURL)
+        sender ! StartParsing(files, projectName, projectDesc, projectURL)
 
       }
+    }
 
     /* this method is use to index each file as downloaded from github for each project. */
-    case  StartFileIndex(projectName,projectDesc,fileName,fileExt,content,mappingType,projectURL) => {
+    case  StartFileIndex(projectName,projectDesc,fileName,fileExt,content,mappingType,projectURL,maincount) => {
 
+      count+=1
       /* the index will be created for the files as extracted from the local folder*/
-      println("in ESClient : filling values for all mappings: for File:  " + fileName)
-      var tempprojectName = projectName.replaceAll("[^\\w]", " ")
-      var tempprojectDesc = projectDesc.replaceAll("[^\\w]", " ")
-
-
+      println("Creating the index for:  " + fileName + " . Please wait for all the files to be processed")
+      val tempprojectName = projectName.replaceAll("[^\\w]", " ")
+      val tempprojectDesc = projectDesc.replaceAll("[^\\w]", " ")
 
       /* the json string for this index contains the projectname, description, url and the file content
       * this file content is simply bag of words and all special characters are removed from this. */
@@ -294,28 +298,29 @@ class ESClient extends Actor {
        but the extension of the file , for example: go, and the mapping fields contains the json data*/
       client.prepareIndex(mappingType,fileExt.toLowerCase()).setSource(jsonString).get()
 
+
     }
 
     /**************************************************************************************************/
 
     /* create the index for tags - this is another tag for searching the projects */
-    case createTagIndex(projectId, projectName, projectURL, projectDesc, projectTags) =>
+    case createTagIndex(projectId, projectName, projectURL, projectDesc, projectTags) => {
       val splitTag = projectTags.split(" ")
 
       /* fetch all the tags and then if it is not blank then create the index*/
-      for(eachsplitTag <- splitTag)
-      {
-        if(!eachsplitTag.isEmpty){
+      for (eachsplitTag <- splitTag) {
+        if (!eachsplitTag.isEmpty) {
 
           val tempprojectName = projectName.replaceAll("[^\\w]", " ")
           val tempprojectDesc = projectDesc.replaceAll("[^\\w]", " ")
           var tempprojectTags = projectTags.replaceAll("[^\\w]", " ")
           tempprojectTags = tempprojectTags.trim
-          println("each trimmed tags: "+tempprojectTags)
+          println("each trimmed tags: " + tempprojectTags)
           var tempeachsplitTag = eachsplitTag.replaceAll(" ", "")
           tempeachsplitTag = tempeachsplitTag.toLowerCase()
 
-          val jsonString = s"""
+          val jsonString =
+            s"""
           {
             "projectId":"$projectId",
             "projectname": "$tempprojectName",
@@ -328,10 +333,11 @@ class ESClient extends Actor {
 
           /* create another index with index name as tags , type with the tag name as received in the xml , example:
           * maven or eclipse and the json string contains only the basic information of the project. */
-          client.prepareIndex("tags",tempeachsplitTag).setSource(jsonString).get()
+          client.prepareIndex("tags", tempeachsplitTag).setSource(jsonString).get()
         }
 
       }
+    }
 
     /****************************************************************************************************************/
 
@@ -359,4 +365,13 @@ object StreamDownlESProject extends App {
   /* call the StartStream - to start streaming the projects from OHLOH API and then process them to create
   * index in elastic search */
   streamDownlProj ! StartStream("https://www.openhub.net/projects.xml?query=github&api_key=c3943bda503b24b9ed76ba00add525ecd330720aa437f82fa3bc4cbeab330b7b")
+
+  Thread.sleep(300000)
+  println("No for more files to download. It will exit after 5 seconds")
+
+  Thread.sleep(5)
+  println("System exiting")
+  system.stop(callESClient)
+  system.stop(streamDownlProj)
+  System.exit(0)
 }
