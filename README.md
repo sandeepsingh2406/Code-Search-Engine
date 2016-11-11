@@ -3,11 +3,11 @@ This repo contains the HW3 project i.e. **Code Search Engine** based on Elastic 
 Project Members are: Abhijay Patne , Kruti Sharma, Sandeep Singh
 
 -------------------------------------------------------------------------------------------------------
-**Highlights, features of the application:**
+**Highlights and features of the application:**
 
-1. Search by languages or tags
+1. Search by different type of indexes: languages or tags
 2. Web service is hosted on Google Cloud (http://104.197.155.244:8080/)
-3. 
+3. Many different parameters for search available under the languages index
 
 -------------------------------------------------------------------------------------------------------
 
@@ -113,11 +113,19 @@ There are two test cases in this testcase file and both make rest calls to the w
 
 **How to run the project:**
 
+OPTION 1(Run everything locally):
+
 1. Clone the repo and import the project into IntelliJ using SBT.
 
 2. Both classes can be run individually, OhlohDownlStrMultiActor.scala and SearchEngine.scala, as they are independent. Right click on OhlohDownlStrMultiActor.scala and Run -> **StreamDownlESProject** - this is the pre-processing of index on the elastic search engine deployed on google cloud. Noew SearchEngine.scala -> Right click and run **SearchEngine** to run the code search engine and then use the search engine url in your browser.
-  
-3. After the web service is created, the URL to access it is http://104.197.155.244:8080
+
+OPTION 2(Run web service on the cloud):
+
+1. Copy SearchEngine.scala and build.sbt to a folder in your google cloud VM. 
+        Run using SBT(From within the folder): sbt compile
+                                               sbt run
+
+* After the web service is created, the URL to access it is http://104.197.155.244:8080 (or http://localhost:8080 if web service is run locally OR use your google cloud IP)
 (This is specified in SearchEngine.scala ) 
 
    Instructions to use the web service created(These instructions can also be found when you browse to http://104.197.155.244:8080 using a browser:
@@ -195,5 +203,6 @@ The number of VUs selected were : 2, 4, 6, 8 and 10. The average response time a
 1. We have deployed Elasticsearch solution provide by Bitnami (https://console.cloud.google.com/launcher/details/bitnami-launchpad/elasticsearch?q=elas&project=cloudcs441hw3)
 
 2. Opened ports 9200 for Elasticsearch public access and 8080 for our Web service
+
 
 **References:** present in "references.txt"
