@@ -129,6 +129,7 @@ There are two test cases in this testcase file and both make rest calls to the w
 
 2. Both classes can be run individually, OhlohDownlStrMultiActor.scala and SearchEngine.scala, as they are independent. Right click on OhlohDownlStrMultiActor.scala and Run -> **StreamDownlESProject** - this is the pre-processing of index on the elastic search engine deployed on google cloud. Noew SearchEngine.scala -> Right click and run **SearchEngine** to run the code search engine and then use the search engine url in your browser.
 
+Note: If while running the scala programs for the first time, IntelliJ might show the error, "Module not defined". You can go to Run->Edit Configurations->Use classpath of module and specify the module there. And then rerun the program.
 **OPTION 2(Run web service on the cloud):**
 
 1. Copy SearchEngine.scala and build.sbt to a folder in your google cloud VM. 
