@@ -120,9 +120,9 @@ These tests perform the following unit and integration testing:
 There are two test cases in this testcase file and both make rest calls to the web service and check its response. If the responses match, these test cases pass.
 
 
-Note: While running the scala test programs for the first time, IntelliJ might show the error, "Module not defined". You can go to Run->Edit Configurations->Use classpath and SDK of module and specify the module there. And then rerun the test program.
+**Note:** While running the scala test programs for the first time, IntelliJ might show the error, "Module not defined". You can go to Run->Edit Configurations->Use classpath and SDK of module and specify the module there. And then rerun the test program.
 
-Note: Sometimes IntelliJ automatically changes the test library for running the test cases. That might cause syntactical errors in our test programs. You can respecify the test library by removing the scala test library specified in build.sbt, and then putting it back again. 
+**Note:** Sometimes IntelliJ automatically changes the test library for running the test cases. That might cause syntactical errors in our test programs. You can respecify the test library by removing the scala test library specified in build.sbt, and then putting it back again. 
 The following scalatest library has been used:
 
 libraryDependencies += "org.scalatest"  %% "scalatest"   % "2.2.4" % Test 
@@ -137,7 +137,7 @@ libraryDependencies += "org.scalatest"  %% "scalatest"   % "2.2.4" % Test
 
 2. Both classes can be run individually, OhlohDownlStrMultiActor.scala and SearchEngine.scala, as they are independent. Right click on OhlohDownlStrMultiActor.scala and Run -> **StreamDownlESProject** - this is the pre-processing of index on the elastic search engine deployed on google cloud. Noew SearchEngine.scala -> Right click and run **SearchEngine** to run the code search engine and then use the search engine url in your browser.
 
-Note: While running the scala programs for the first time, IntelliJ might show the error, "Module not defined". You can go to Run->Edit Configurations->Use classpath of module and specify the module there. And then rerun the program.
+**Note:** While running the scala programs for the first time, IntelliJ might show the error, "Module not defined". You can go to Run->Edit Configurations->Use classpath of module and specify the module there. And then rerun the program.
 
 **OPTION 2(Run web service on the cloud):**
 
