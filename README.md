@@ -2,6 +2,8 @@ This repo contains the HW3 project i.e. **Code Search Engine** based on Elastic 
 
 Project Members are: Abhijay Patne , Kruti Sharma, Sandeep Singh
 
+**Note** : TA or professor, when you plan to evaluate our search engine, please convey us in advance (at least an hour), so that we can start our VMs. We can't afford to keep the VMs running for long time (more than 2 days consecutively), so we will start the VM when you plan to evaluate and will shut down the VM when you are done.
+
 -------------------------------------------------------------------------------------------------------
 **Highlights and features of the application:**
 
@@ -135,7 +137,7 @@ libraryDependencies += "org.scalatest"  %% "scalatest"   % "2.2.4" % Test
 
 1. Clone the repo and import the project into IntelliJ using SBT.
 
-2. Both classes can be run individually, OhlohDownlStrMultiActor.scala and SearchEngine.scala, as they are independent. Right click on OhlohDownlStrMultiActor.scala and Run -> **StreamDownlESProject** - this is the pre-processing of index on the elastic search engine deployed on google cloud. Noew SearchEngine.scala -> Right click and run **SearchEngine** to run the code search engine and then use the search engine url in your browser.
+2. Both classes can be run individually, OhlohDownlStrMultiActor.scala and SearchEngine.scala, as they are independent. Right click on OhlohDownlStrMultiActor.scala and Run -> **StreamDownlESProject** - this is the pre-processing step where we download the projects and create indexes on the elastic search engine deployed on google cloud. Now run SearchEngine.scala -> Right click and run **SearchEngine** to run the code search engine locally and then use the search engine url in your browser (http://localhost:8080/).
 
 **Note:** While running the scala programs for the first time, IntelliJ might show the error, "Module not defined". You can go to Run->Edit Configurations->Use classpath of module and specify the module there. And then rerun the program.
 
@@ -147,10 +149,11 @@ libraryDependencies += "org.scalatest"  %% "scalatest"   % "2.2.4" % Test
    
            sbt run
 
-## After the web service is created, the URL to access it is http://104.197.155.244:8080 (or http://localhost:8080 if web service is run locally OR use your google cloud IP)
+## After the web service is created, the URL to access it is http://104.197.155.244:8080 (or http://localhost:8080 if web service is run locally OR use your google cloud external IP)
 (This is specified in SearchEngine.scala ) 
 
    **Instructions to use the web service created(These instructions can also be found when you browse to http://104.197.155.244:8080 using a browser:**
+   Note: If simply clicking the URL doesn't work, copy it and paste in your browser.
 
     Note: If count is not specified, by default 5 search results are obtained 
     Note: If running the web service locally, replace the IP(http://104.197.155.244/) in above and below example URLs by "localhost"
@@ -199,7 +202,7 @@ libraryDependencies += "org.scalatest"  %% "scalatest"   % "2.2.4" % Test
 -------------------------------------------------------------------------------------------------------
 **Limitations:**
 
-1. Our search parameters can only contains single terms. Mutiple search values in the same parameter are not handled.
+1. Our search parameters can contain only single terms. Mutiple search values in the same parameter are not handled.
 
 2. The projects streamed for processing and creating index on elastic search are only Github projects, so the rest call made to Ohloh has the projects filtered for github and hence only works for projects which have a valid download url in their xml response.
 
@@ -225,8 +228,10 @@ The number of VUs selected were : 2, 4, 6, 8 and 10. The average response time a
 **Google Cloud details:**
 
 1. We have deployed Elasticsearch solution provide by Bitnami (https://console.cloud.google.com/launcher/details/bitnami-launchpad/elasticsearch?q=elas&project=cloudcs441hw3)
+URL for Elasticsearch: http://104.197.155.244:9200
+URL for Code Search Engine Web Service: http://104.197.155.244:8080
 
-2. Opened ports 9200 for Elasticsearch public access and 8080 for our Web service
+2. Opened ports 9200 for Elasticsearch public access and 8080 for our Web Service
 
 
 **References:** present in "references.txt"
