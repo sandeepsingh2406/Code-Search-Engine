@@ -58,7 +58,17 @@ name or description or home page url which gives us the flexibility to download 
 
 Overall message passing within actors for Streaming, Downloading, Parsing and Indexing the files on Elastic Search Engine => 
 
-**StreamDownlProjects(Main Actor) ! StartStream** -------pass the download url of project to this actor ------> **ESClient (2nd Actor) ! StartDownloading** ----- extract the bag of words from the downloaded files ------> **StreamDownlProjects(Main Actor) ! StartParsing** -----start indexing each of the files-----> **ESClient(2nd Actor) ! StartFileIndex**
+     StreamDownlProjects(Main Actor) ! StartStream {pass the download 
+     url of project to this actor} =================================> 
+     
+     ESClient (2nd Actor)!StartDownloading {start downloading each 
+     projects repository on local machine} =========================> 
+
+     StreamDownlProjects(Main Actor)!StartParsing {Start extracting bag of
+     words from all code files of each project} ====================> 
+
+     ESClient(2nd Actor) ! StartFileIndex {Start creating index for each of
+     the code files of each project}
 
 
 
@@ -176,12 +186,14 @@ There are two test cases in this testcase file and both make rest calls to the w
       http://104.197.155.244:8080/?tags=security
   
 
-------------------------------------------------------------------------------------------------------- 
+-------------------------------------------------------------------------------------------------------
 **Limitations:**
 
 1. Our search parameters can only contains single terms. Mutiple search values in the same parameter are not handled.
 
 2. The projects streamed for processing and creating index on elastic search are only Github projects, so the rest call made to Ohloh has the projects filtered for github and hence only works for projects which have a valid download url in their xml response.
+
+3. Streaming OHLOH Projects with range APIs - since we wanted to stream Github related projects, thus the query used for streaming the project did not consider the range as specified in our grade book column. Some project ids streamed may be out of our range.
 
 -------------------------------------------------------------------------------------------------------
 **Load Tests:**
