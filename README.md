@@ -5,9 +5,9 @@ Project Members are: Abhijay Patne , Kruti Sharma, Sandeep Singh
 -------------------------------------------------------------------------------------------------------
 **Highlights and features of the application:**
 
-1. Search by different type of indexes: languages or tags
+1. Search by different type of indexes: languages or tags(obtained from Ohloh's xml response)
 2. Web service is hosted on Google Cloud (http://104.197.155.244:8080/)
-3. Many different parameters for search available under the languages index
+3. Many different parameters for search available in our web service under language
 
 -------------------------------------------------------------------------------------------------------
 
