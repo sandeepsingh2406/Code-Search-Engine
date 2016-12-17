@@ -2,13 +2,13 @@ This repo contains the HW3 project i.e. **Code Search Engine** based on Elastic 
 
 Project Members are: Abhijay Patne , Kruti Sharma, Sandeep Singh
 
-**Note** : TA or professor, when you plan to evaluate our search engine, please convey us in advance (at least an hour), so that we can start our VMs. We can't afford to keep the VMs running for long time (more than 2 days consecutively), so we will start the VM when you plan to evaluate and will shut down the VM when you are done.
+
 
 -------------------------------------------------------------------------------------------------------
 **Highlights and features of the application:**
 
 1. Search by different type of indexes: languages or tags(obtained from Ohloh's xml response)
-2. Web service is hosted on Google Cloud (http://104.197.155.244:8080/)
+2. Web service is hosted on Google Cloud 
 3. Many different parameters for search available in our web service under language
 
 -------------------------------------------------------------------------------------------------------
@@ -149,21 +149,21 @@ libraryDependencies += "org.scalatest"  %% "scalatest"   % "2.2.4" % Test
    
            sbt run
 
-## After the web service is created, the URL to access it is http://104.197.155.244:8080 (or http://localhost:8080 if web service is run locally OR use your google cloud external IP)
+## After the web service is created, the URL to access it is http://google-cloud-ip:8080 (or http://localhost:8080 if web service is run locally OR use your google cloud external IP)
 (This is specified in SearchEngine.scala ) 
 
-   **Instructions to use the web service created(These instructions can also be found when you browse to http://104.197.155.244:8080 using a browser:**
+   **Instructions to use the web service created(These instructions can also be found when you browse to http://google-cloud-ip:8080 using a browser:**
    Note: If simply clicking the URL doesn't work, copy it and paste in your browser.
 
     Note: If count is not specified, by default 5 search results are obtained 
-    Note: If running the web service locally, replace the IP(http://104.197.155.244/) in above and below example URLs by "localhost"
+    Note: If running the web service locally, replace the IP(http://google-cloud-ip/) in above and below example URLs by "localhost"
 
        **Language based search**
    
      1. Searching all projects for a specified langugage(for example, java)
         Extension: ?language=java 
    
-     So you enter the URL: http://104.197.155.244:8080/?language=java
+     So you enter the URL: http://google-cloud-ip:8080/?language=java
    
      Some of the langugages used in the indexed projects are: Java, Go, PHP, JS, CSS, HTML, XML
    
@@ -173,7 +173,7 @@ libraryDependencies += "org.scalatest"  %% "scalatest"   % "2.2.4" % Test
      3. If you want to specify count(eg. 5) along with above parameters, just add the parameter(add below extension preceded by '&'):
         Extension: count=5
    
-      So you enter the URL: http://104.197.155.244:8080/?language=java&count=5
+      So you enter the URL: http://google-cloud-ip:8080/?language=java&count=5
    
      4. Other parameters possible are(only language is necessary, all others optional, all parameters take only single values and can be written in any order):
          Extension: projectname=eclipse
@@ -185,18 +185,18 @@ libraryDependencies += "org.scalatest"  %% "scalatest"   % "2.2.4" % Test
    
       Use below query to give a tag to search in all project tags:
    
-      http://104.197.155.244:8080/?tags=enter_tag_here
+      http://google-cloud-ip:8080/?tags=enter_tag_here
    
       This tag parameter cannot be combined with any other language based search parameters.
    
       Some example queries:
    
-      http://104.197.155.244:8080/?language=java
-      http://104.197.155.244:8080/?language=java&count=1
-      http://104.197.155.244:8080/?language=java&projectname=eclipse
-      http://104.197.155.244:8080/?language=java&projectname=eclipse&count=2
-      http://104.197.155.244:8080/?language=java&projectname=eclipse&keyword=connector
-      http://104.197.155.244:8080/?tags=security
+      http://google-cloud-ip:8080/?language=java
+      http://google-cloud-ip:8080/?language=java&count=1
+      http://google-cloud-ip:8080/?language=java&projectname=eclipse
+      http://google-cloud-ip:8080/?language=java&projectname=eclipse&count=2
+      http://google-cloud-ip:8080/?language=java&projectname=eclipse&keyword=connector
+      http://google-cloud-ip:8080/?tags=security
   
 
 -------------------------------------------------------------------------------------------------------
@@ -213,13 +213,13 @@ libraryDependencies += "org.scalatest"  %% "scalatest"   % "2.2.4" % Test
 
 The load test was performed using SOAPUI - LOADUI NG. The test case contained 4 queries : 
 
-http://104.197.155.244:8080/ -- checking if the search engine is available
+http://google-cloud-ip:8080/ -- checking if the search engine is available
 
-http://104.197.155.244:8080/?language=java&projectname=eclipse -- search based on language and project name
+http://google-cloud-ip:8080/?language=java&projectname=eclipse -- search based on language and project name
 
-http://104.197.155.244:8080/?language=java -- search simply based on language
+http://google-cloud-ip:8080/?language=java -- search simply based on language
 
-http://104.197.155.244:8080/?tags=security -- search simply based on tags
+http://google-cloud-ip:8080/?tags=security -- search simply based on tags
 
 The number of VUs selected were : 2, 4, 6, 8 and 10. The average response time and the associated charts are present in the folder **SOAPUI Load Test Results**. The folder has analysis report for each of the VUs, chart for VUs = 10 and the consolidated chart for average response time vs number of VUs.
 
@@ -228,8 +228,8 @@ The number of VUs selected were : 2, 4, 6, 8 and 10. The average response time a
 **Google Cloud details:**
 
 1. We have deployed Elasticsearch solution provide by Bitnami (https://console.cloud.google.com/launcher/details/bitnami-launchpad/elasticsearch?q=elas&project=cloudcs441hw3)
-URL for Elasticsearch: http://104.197.155.244:9200
-URL for Code Search Engine Web Service: http://104.197.155.244:8080
+URL for Elasticsearch: http://google-cloud-ip:9200
+URL for Code Search Engine Web Service: http://google-cloud-ip:8080
 
 2. Opened ports 9200 for Elasticsearch public access and 8080 for our Web Service
 
